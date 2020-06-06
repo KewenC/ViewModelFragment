@@ -30,6 +30,11 @@ public class FirstFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.first_fragment, container, false);
         tv_first_title = v.findViewById(R.id.tv_first_title);
+
+        AbstractThemeFactory firstThemeFactory = new FirstThemeFactory(mainActivity, v);
+        ThemeVisualizer themeVisualizer = firstThemeFactory.createVisualizer();
+        themeVisualizer.openVisualizer();
+
         return v;
     }
 
@@ -56,9 +61,6 @@ public class FirstFragment extends Fragment {
             }
         });
 
-        AbstractThemeFactory firstThemeFactory = new FirstThemeFactory(mainActivity);
-        ThemeVisualizer themeVisualizer = firstThemeFactory.createVisualizer();
-        themeVisualizer.openVisualizer();
     }
 
 }
