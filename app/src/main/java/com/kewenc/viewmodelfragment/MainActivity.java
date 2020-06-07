@@ -7,8 +7,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,8 +51,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_main_first:
-                contentFragment = FirstFragment.newInstance();
+                List fragmentList = getSupportFragmentManager().getFragments();
+                int size = fragmentList.size();
+                Log.i("TAGF", "size="+size);
                 fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.remove(contentFragment);
+                fragmentTransaction.commitAllowingStateLoss();
+
+                List fragmentList2 = getSupportFragmentManager().getFragments();
+                int size2 = fragmentList2.size();
+                Log.i("TAGF", "size2="+size2);
+
+                fragmentTransaction = fragmentManager.beginTransaction();
+                contentFragment = FirstFragment.newInstance();
                 fragmentTransaction.replace(R.id.fl_main_content, contentFragment);
                 fragmentTransaction.commitAllowingStateLoss();
                 break;
